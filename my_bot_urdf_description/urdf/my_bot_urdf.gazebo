@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<robot name="my_bot_urdf" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<xacro:property name="body_color" value="Gazebo/Silver" />
+<xacro:property name="pkg_path" value="$(find my_bot_urdf_description)" />
+
+<gazebo>
+  <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>${pkg_path}/config/controllers.yaml</parameters>
+  </plugin>
+</gazebo>
+
+<gazebo>
+  <plugin filename="gz-sim-track-controller-system" 
+          name="gz::sim::systems::TrackController">
+    <link>Chassis_Right_1</link>
+    <max_linear_speed>10</max_linear_speed>  
+    <tracks_separation>0.2208</tracks_separation>
+    <track_height>0.05</track_height>
+    <max_force>200</max_force>         
+    <debug>false</debug>
+  </plugin>
+</gazebo>
+
+<gazebo>
+  <plugin filename="gz-sim-track-controller-system" 
+          name="gz::sim::systems::TrackController">
+    <link>Chassis_Left_1</link>
+    <max_linear_speed>10</max_linear_speed>
+    <tracks_separation>0.2208</tracks_separation>
+    <track_height>0.05</track_height>
+    <max_force>200</max_force>
+    <debug>false</debug>
+  </plugin>
+</gazebo>
+
+<gazebo reference="base_link">
+  <material>${body_color}</material>
+  <mu1>0.2</mu1>
+  <mu2>0.2</mu2>
+  <self_collide>true</self_collide>
+  <gravity>true</gravity>
+</gazebo>
+
+<gazebo reference="Chassis_Right_1">
+  <material>${body_color}</material>
+  <mu1>0.2</mu1>
+  <mu2>0.2</mu2>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="backLeg_Right_1">
+  <material>${body_color}</material>
+  <mu1>0.1</mu1>
+  <mu2>0.1</mu2>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="front_wheel_1">
+  <material>${body_color}</material>
+  <mu1>1.0</mu1>
+  <mu2>1.0</mu2>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="back_rightWheel_1">
+  <material>${body_color}</material>
+  <mu1>0.01</mu1>
+  <mu2>0.01</mu2>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="Chassis_Left_1">
+  <material>${body_color}</material>
+  <mu1>0.2</mu1>
+  <mu2>0.2</mu2>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="backLeg_Left_1">
+  <material>${body_color}</material>
+  <mu1>0.1</mu1>
+  <mu2>0.1</mu2>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="front_wheel_left_1">
+  <material>${body_color}</material>
+  <mu1>1.0</mu1>
+  <mu2>1.0</mu2>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="back_leftWheel_1">
+  <material>${body_color}</material>
+  <mu1>0.01</mu1>
+  <mu2>0.01</mu2>
+  <self_collide>true</self_collide>
+</gazebo>
+
+</robot>

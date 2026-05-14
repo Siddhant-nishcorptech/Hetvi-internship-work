@@ -1,0 +1,339 @@
+<?xml version="1.0" ?>
+<robot name="my_bot_urdf" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find my_bot_urdf_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find my_bot_urdf_description)/urdf/my_bot_urdf.trans" />
+<xacro:include filename="$(find my_bot_urdf_description)/urdf/my_bot_urdf.gazebo" />
+<xacro:include filename="$(find my_bot_urdf_description)/urdf/sensor.xacro" />
+
+<link name="base_footprint" />
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.0033596435964172006 -1.2075260240820285e-05 0.05589806216264151" rpy="0 0 0"/>
+    <mass value="0.9774581945841018"/>
+    <inertia ixx="0.012343" iyy="0.008599" izz="0.013241" ixy="-0.0" iyz="1e-06" ixz="-0.000465"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<xacro:imu_sensor parent_link="base_link"/>
+<xacro:depth_camera parent_link="base_link" xyz="-0.08 0.0 0.0" rpy="0.0 0.0 3.14159"/>
+
+<xacro:contact_sensor link_name="front_wheel_1"      sensor_name="contact_fr"/>
+<xacro:contact_sensor link_name="back_rightWheel_1"   sensor_name="contact_br"/>
+<xacro:contact_sensor link_name="front_wheel_left_1"  sensor_name="contact_fl"/>
+<xacro:contact_sensor link_name="back_leftWheel_1"    sensor_name="contact_bl"/>
+
+<link name="Chassis_Right_1">
+  <inertial>
+    <origin xyz="0.1197895931470605 -0.046431176620550504 -0.07466160107549423" rpy="0 0 0"/>
+    <mass value="0.9646610662593039"/>
+    <inertia ixx="0.002851" iyy="0.016534" izz="0.014408" ixy="-0.000502" iyz="1.5e-05" ixz="0.001092"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.072474 0.110389 0.066876" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/Chassis_Right_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.072474 0.110389 0.066876" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/Chassis_Right_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="backLeg_Right_1">
+  <inertial>
+    <origin xyz="-0.0797337780181765 0.019191950840790964 0.02320722607657552" rpy="0 0 0"/>
+    <mass value="0.23703263462762003"/>
+    <inertia ixx="0.00021" iyy="0.001199" izz="0.001134" ixy="0.000233" iyz="2.6e-05" ixz="-6.5e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.133077 0.112989 0.198811" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/backLeg_Right_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.133077 0.112989 0.198811" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/backLeg_Right_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="front_wheel_1">
+  <inertial>
+    <origin xyz="-3.727427440591846e-07 -0.003930802938783701 -1.5323994656535334e-08" rpy="0 0 0"/>
+    <mass value="0.33084472937172466"/>
+    <inertia ixx="0.000808" iyy="0.001543" izz="0.000808" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.306135 0.170189 0.081049" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/front_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.306135 0.170189 0.081049" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/front_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="back_rightWheel_1">
+  <inertial>
+    <origin xyz="-0.00010165802096197274 -0.007685772206159958 -2.5000640483385794e-05" rpy="0 0 0"/>
+    <mass value="0.28738708316530265"/>
+    <inertia ixx="0.000303" iyy="0.000577" izz="0.000304" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.041923 0.092489 0.198811" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/back_rightWheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.041923 0.092489 0.198811" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/back_rightWheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="Chassis_Left_1">
+  <inertial>
+    <origin xyz="0.11978752184442765 0.046431151839672516 -0.07466514554147553" rpy="0 0 0"/>
+    <mass value="0.9646619525430369"/>
+    <inertia ixx="0.002851" iyy="0.016534" izz="0.014408" ixy="0.000502" iyz="-1.5e-05" ixz="0.001092"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.072474 -0.110389 0.066876" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/Chassis_Left_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.072474 -0.110389 0.066876" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/Chassis_Left_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="backLeg_Left_1">
+  <inertial>
+    <origin xyz="-0.07973426572350685 -0.019191924941245497 0.023207794370871115" rpy="0 0 0"/>
+    <mass value="0.23703315534019406"/>
+    <inertia ixx="0.00021" iyy="0.001199" izz="0.001134" ixy="-0.000233" iyz="-2.6e-05" ixz="-6.5e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.133075 -0.112989 0.198815" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/backLeg_Left_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.133075 -0.112989 0.198815" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/backLeg_Left_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="front_wheel_left_1">
+  <inertial>
+    <origin xyz="3.057428469288581e-07 0.003930802938781647 -7.107536981187934e-08" rpy="0 0 0"/>
+    <mass value="0.33084472937172466"/>
+    <inertia ixx="0.000808" iyy="0.001543" izz="0.000808" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.306132 -0.170189 0.081053" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/front_wheel_left_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.306132 -0.170189 0.081053" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/front_wheel_left_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="back_leftWheel_1">
+  <inertial>
+    <origin xyz="-0.00010197953537106896 0.0076857722061578065 2.4937251395018567e-05" rpy="0 0 0"/>
+    <mass value="0.28738708316530265"/>
+    <inertia ixx="0.000303" iyy="0.000577" izz="0.000304" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.041925 -0.092489 0.198815" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/back_leftWheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.041925 -0.092489 0.198815" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find my_bot_urdf_description)/meshes/back_leftWheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="base_joint" type="fixed">
+    <parent link="base_footprint" />
+    <child link="base_link"/>
+    <origin xyz="0 0 0.26" rpy="0 0 0"/>
+</joint>
+
+<joint name="revolute_1" type="revolute">
+  <origin xyz="-0.072474 -0.110389 -0.066876" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="Chassis_Right_1"/>
+  <axis xyz="-0.0 -1.0 0.0"/>
+  <limit upper="0.698132" lower="-1.396263" effort="100" velocity="100"/>
+  <dynamics damping="5.0" friction="2.0"/>
+</joint>
+
+<joint name="revolute_2" type="revolute">
+  <origin xyz="0.205551 -0.0026 -0.131935" rpy="0 0 0"/>
+  <parent link="Chassis_Right_1"/>
+  <child link="backLeg_Right_1"/>
+  <axis xyz="0.0 1.0 -0.0"/>
+  <limit upper="0.349066" lower="-1.919862" effort="100" velocity="100"/>
+  <dynamics damping="5.0" friction="2.0"/>
+</joint>
+
+<joint name="revolute_3" type="continuous">
+  <origin xyz="0.378609 -0.0598 -0.014173" rpy="0 0 0"/>
+  <parent link="Chassis_Right_1"/>
+  <child link="front_wheel_1"/>
+  <axis xyz="-0.0 1.0 -0.0"/>
+</joint>
+
+<joint name="revolute_4" type="continuous">
+  <origin xyz="-0.175 0.0205 0.0" rpy="0 0 0"/>
+  <parent link="backLeg_Right_1"/>
+  <child link="back_rightWheel_1"/>
+  <axis xyz="0.0 1.0 -0.0"/>
+</joint>
+
+<joint name="revolute_5" type="revolute">
+  <origin xyz="-0.072474 0.110389 -0.066876" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="Chassis_Left_1"/>
+  <axis xyz="0.0 1.0 -0.0"/>
+  <limit upper="1.396263" lower="-0.698132" effort="100" velocity="100"/>
+  <dynamics damping="5.0" friction="2.0"/>
+</joint>
+
+<joint name="revolute_6" type="revolute">
+  <origin xyz="0.205549 0.0026 -0.131939" rpy="0 0 0"/>
+  <parent link="Chassis_Left_1"/>
+  <child link="backLeg_Left_1"/>
+  <axis xyz="-0.0 -1.0 0.0"/>
+  <limit upper="1.919862" lower="-0.349066" effort="100" velocity="100"/>
+  <dynamics damping="5.0" friction="2.0"/>
+</joint>
+
+<joint name="revolute_7" type="continuous">
+  <origin xyz="0.378606 0.0598 -0.014177" rpy="0 0 0"/>
+  <parent link="Chassis_Left_1"/>
+  <child link="front_wheel_left_1"/>
+  <axis xyz="0.0 1.0 -0.0"/>
+</joint>
+
+<joint name="revolute_8" type="continuous">
+  <origin xyz="-0.175 -0.0205 0.0" rpy="0 0 0"/>
+  <parent link="backLeg_Left_1"/>
+  <child link="back_leftWheel_1"/>
+  <axis xyz="-0.0 1.0 -0.0"/>
+</joint>
+
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+
+    <joint name="revolute_1">
+      <command_interface name="effort">
+        <param name="min">-100</param> <param name="max">100</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>  
+    </joint>
+
+    <joint name="revolute_2">
+      <command_interface name="effort">
+        <param name="min">-100</param> <param name="max">100</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="revolute_3">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="revolute_4">
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="revolute_5">
+      <command_interface name="effort">
+        <param name="min">-100</param> <param name="max">100</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="revolute_6">
+      <command_interface name="effort">
+        <param name="min">-100</param> <param name="max">100</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="revolute_7">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="revolute_8">
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+  </ros2_control>
+
+</robot>
