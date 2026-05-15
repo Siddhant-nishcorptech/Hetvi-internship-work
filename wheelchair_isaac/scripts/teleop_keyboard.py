@@ -13,12 +13,15 @@ Key Bindings:
     l : turn right (angular.z = -turn)
     k : stop     (all velocities = 0)
     Ctrl-C : quit
-
 """
+
+import sys
+import select
+import termios
+import tty
 
 import rclpy
 from geometry_msgs.msg import Twist
-import sys, select, termios, tty
 
 msg = """
 Track Control:
@@ -39,45 +42,37 @@ moveBindings = {
     'k': ( 0.0,  0.0),   # Stop
 }
 
+
 def getKey(settings):
-    """Read a single keypress from stdin in raw terminal mode.
+    tty.setraw(sys.stdin.fileno())
+    rlist, _, _ = select.select([sys.stdin], [], [], 0.1)
+    key = sys.stdin.read(1) if rlist else ''
+    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+    return key  
 
-    Switches stdin to raw mode, waits up to 0.1s for a keypress,
-    then restores the original terminal settings.
-
-    Args:
-        settings: Original terminal attributes from tcgetattr().
-
-    Returns:
-        str: The character pressed, or '' if no key within timeout.
-    """
-    tty.setraw(sys.stdin.fileno())          
-    rlist, _, _ = select.select([sys.stdin], [], [], 0.1)  
-    key = sys.stdin.read(1) if rlist else ''   
-    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)  
-    return key
 
 def main(args=None):
     settings = termios.tcgetattr(sys.stdin)
+
     rclpy.init(args=args)
     node = rclpy.create_node('isaac_teleop_keyboard')
     pub  = node.create_publisher(Twist, '/cmd_vel', 10)
 
-    speed = 2.0   # Linear speed multiplier (m/s) 
+    speed = 2.0   # Linear speed multiplier (m/s)
     turn  = 1.0   # Angular speed multiplier (rad/s)
     x     = 0.0   # Current linear velocity multiplier
     th    = 0.0   # Current angular velocity multiplier
 
-    print(msg)
+    print(msg)    
 
     try:
         while rclpy.ok():
             key = getKey(settings)
 
             if key in moveBindings:
-                x  = moveBindings[key][0]  
+                x  = moveBindings[key][0]
                 th = moveBindings[key][1]
-            elif key == '\x03':   
+            elif key == '\x03':   # Ctrl-C
                 break
 
             twist = Twist()
@@ -90,11 +85,13 @@ def main(args=None):
 
     except Exception as e:
         print(f"\n[ERROR] {e}")
-    finally:
+
+    finally:                     
         pub.publish(Twist())
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
         node.destroy_node()
         rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()
